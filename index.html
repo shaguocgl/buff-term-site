@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>buffTerm — 本地优先的 SSH 管理与 AI Agent 终端</title>
+  <meta name="description" content="buffTerm：桌面 SSH 管理 + 自研 AI Agent。终端危险命令拦截、加密凭据、MCP 服务、AI 巡检整改，本地优先、安全可控。" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2306060a'/><path d='M30 30h40v12H44v8h22v12H44v8h26v12H30z' fill='%2322d3ee'/></svg>" />
+</head>
+<body>
+  <canvas id="bg" aria-hidden="true"></canvas>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-logo">&#x2328;</span>
+        <span>buff<span class="accent">Term</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">功能</a>
+        <a href="#showcase">实拍</a>
+        <a href="#stack">技术</a>
+        <a href="#download" class="nav-cta">下载</a>
+      </div>
+      <button class="nav-burger" id="navBurger" aria-label="菜单"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-content">
+        <div class="hero-badge reveal"><span class="dot"></span> 本地优先 · 数据不出本机</div>
+        <h1 class="reveal">让 <span class="grad">AI Agent</span><br/>替你运维服务器</h1>
+        <p class="hero-sub reveal" id="typewriter">SSH 终端 · 危险命令拦截 · AI 巡检整改 · MCP 服务</p>
+        <div class="hero-actions reveal">
+          <a class="btn btn-primary" href="#download">&#8595; 下载 buffTerm</a>
+          <a class="btn btn-ghost" href="#showcase">查看实拍效果</a>
+        </div>
+        <div class="hero-meta reveal">
+          <span>macOS Universal</span><i></i><span>Windows x64</span><i></i><span>MIT License</span>
+        </div>
+      </div>
+      <div class="terminal-card reveal">
+        <div class="term-bar"><span class="t-red"></span><span class="t-yellow"></span><span class="t-green"></span><em>buffterm — zsh</em></div>
+        <div class="term-body" id="termBody">
+          <p><span class="c-user">you@local</span><span class="c-col">:</span><span class="c-path">~</span><span class="c-sym">$</span> <span class="c-cmd">buffterm connect prod-01</span></p>
+          <p class="dim">&#128274; 已通过系统钥匙串解密凭据</p>
+          <p><span class="c-user">you@local</span><span class="c-col">:</span><span class="c-path">~</span><span class="c-sym">$</span> <span class="c-cmd">ai 帮我排查磁盘空间</span></p>
+          <p class="dim">&#129504; Agent 正在执行 read_file + exec_command…</p>
+          <p><span class="c-good">&#10003; 磁盘占用 76%，建议清理 /var/log 下的旧日志</span></p>
+          <p><span class="c-user">you@local</span><span class="c-col">:</span><span class="c-path">~</span><span class="c-sym">$</span> <span class="c-cmd blink">&#9608;</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 数字统计 -->
+    <section class="stats">
+      <div class="stat reveal"><b data-count="8">0</b><span>核心能力模块</span></div>
+      <div class="stat reveal"><b data-count="90">0</b><span>历史指标追踪(天)</span></div>
+      <div class="stat reveal"><b data-count="100">0</b><span>% 本地数据掌控</span></div>
+      <div class="stat reveal"><b data-count="2">0</b><span>跨平台支持</span></div>
+    </section>
+
+    <!-- 功能 -->
+    <section class="section" id="features">
+      <div class="section-head reveal">
+        <span class="kicker">CAPABILITIES</span>
+        <h2>一个终端，接管你的服务器</h2>
+        <p>自研 AI Agent 编排层 + 协议级 SSH，能力全部在本地闭环。</p>
+      </div>
+      <div class="grid">
+        <article class="card reveal" data-tilt>
+          <div class="card-ico i-agent">&#129504;</div>
+          <h3>自研 AI Agent</h3>
+          <p>手写 Agent 编排层，无框架依赖。SSE 流式解析、工具调用循环、审批拦截、审计留痕全部可控。</p>
+          <ul>
+            <li>exec / read / 巡检 / 趋势分析</li>
+            <li>三级安全级别 + 自定义规则</li>
+          </ul>
+        </article>
+        <article class="card reveal" data-tilt>
+          <div class="card-ico i-shield">&#128737;</div>
+          <h3>终端危险命令拦截</h3>
+          <p>基于终端真实命令行判定，Tab 补全、历史回放、编辑键全覆盖。命中规则回车前弹窗确认。</p>
+          <ul>
+            <li>预置 + 自定义危险规则</li>
+            <li>批准执行 / 取消清行 / 自动聚焦</li>
+          </ul>
+        </article>
+        <article class="card reveal" data-tilt>
+          <div class="card-ico i-lock">&#128274;</div>
+          <h3>加密凭据存储</h3>
+          <p>密码与 API Key 经 AES-256-GCM 加密落 SQLite，主密钥存系统钥匙串，数据库拷走也无法解密。</p>
+          <ul>
+            <li>主密钥内存缓存，一次授权</li>
+            <li>macOS / Windows / Linux 钥匙串</li>
+          </ul>
+        </article>
+        <article class="card reveal" data-tilt>
+          <div class="card-ico i-mcp">&#128268;</div>
+          <h3>对外 MCP 服务</h3>
+          <p>把勾选服务器开放给 Codex / Claude Desktop。Streamable HTTP + token 认证，只读 / 管控 / 放行三档权限。</p>
+          <ul>
+            <li>host 参数化工具集</li>
+            <li>管控模式命中规则人工确认</li>
+          </ul>
+        </article>
+        <article class="card reveal" data-tilt>
+          <div class="card-ico i-inspect">&#128269;</div>
+          <h3>AI 巡检与一键整改</h3>
+          <p>只读基线采集 + 中文巡检报告（含木马 / 挖矿风险），确认后自动执行整改步骤，全程审计与邮件通知。</p>
+          <ul>
+            <li>动态命令白名单，只读安全</li>
+            <li>整改步骤可编辑、可重试</li>
+          </ul>
+        </article>
+        <article class="card reveal" data-tilt>
+          <div class="card-ico i-monitor">&#128200;</div>
+          <h3>资源监控与趋势</h3>
+          <p>CPU / 内存 / 磁盘 / 负载仪表盘，历史趋势最长 90 天，线性回归估算资源增速与达阈值天数。</p>
+          <ul>
+            <li>每 5 秒自动刷新</li>
+            <li>Agent 对话自动采集趋势数据</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- 实拍 -->
+    <section class="section" id="showcase">
+      <div class="section-head reveal">
+        <span class="kicker">SCREENSHOTS</span>
+        <h2>实拍效果</h2>
+        <p>真实界面截图，交互与暗色主题一目了然。</p>
+      </div>
+      <div class="showcase reveal">
+        <div class="showcase-main">
+          <img id="showMain" src="pic/ai-agent.png" alt="AI Agent" />
+          <div class="showcase-caption" id="showCaption">AI Agent 对话</div>
+        </div>
+        <div class="showcase-thumbs" id="showThumbs">
+          <button data-src="pic/ai-agent.png" data-cap="AI Agent 对话" class="active"><img src="pic/ai-agent.png" alt="AI Agent" /></button>
+          <button data-src="pic/ai-api-conf.png" data-cap="AI 平台配置与模型导入"><img src="pic/ai-api-conf.png" alt="AI 配置" /></button>
+          <button data-src="pic/ai-terminal-protection-01.png" data-cap="终端危险命令拦截"><img src="pic/ai-terminal-protection-01.png" alt="终端防护" /></button>
+          <button data-src="pic/ai-terminal-protection-02.png" data-cap="拦截规则配置"><img src="pic/ai-terminal-protection-02.png" alt="终端防护规则" /></button>
+          <button data-src="pic/ai-inspection-01.png" data-cap="AI 巡检报告"><img src="pic/ai-inspection-01.png" alt="巡检" /></button>
+          <button data-src="pic/ai-inspection-02.png" data-cap="一键整改步骤"><img src="pic/ai-inspection-02.png" alt="整改" /></button>
+          <button data-src="pic/ai-mcp.png" data-cap="MCP 服务接入"><img src="pic/ai-mcp.png" alt="MCP" /></button>
+          <button data-src="pic/data-monitor.png" data-cap="资源监控仪表盘"><img src="pic/data-monitor.png" alt="监控" /></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 技术 -->
+    <section class="section" id="stack">
+      <div class="section-head reveal">
+        <span class="kicker">TECH STACK</span>
+        <h2>技术栈</h2>
+        <p>协议级 SSH，不依赖系统 ssh / sftp 进程。</p>
+      </div>
+      <div class="stack-grid reveal">
+        <div class="stack-item"><b>Tauri 2</b><span>桌面框架 · Rust 后端</span></div>
+        <div class="stack-item"><b>React 19</b><span>TypeScript · xterm.js</span></div>
+        <div class="stack-item"><b>russh</b><span>协议级 SSH / SFTP</span></div>
+        <div class="stack-item"><b>SQLite</b><span>rusqlite · 配置/审计/加密凭据</span></div>
+        <div class="stack-item"><b>keyring</b><span>系统钥匙串 · 主密钥</span></div>
+        <div class="stack-item"><b>自研 Agent</b><span>OpenAI 兼容 · 无框架依赖</span></div>
+      </div>
+    </section>
+
+    <!-- 下载 -->
+    <section class="section" id="download">
+      <div class="cta reveal">
+        <h2>准备好接管你的服务器了吗？</h2>
+        <p>下载 buffTerm，连接第一台主机，让 AI 开始帮你干活。</p>
+        <div class="cta-btns">
+          <a class="btn btn-primary" href="https://github.com/shaguocgl/buff-term/releases/latest" target="_blank" rel="noopener">&#8595; 前往 Releases 下载</a>
+        </div>
+        <p class="cta-note">macOS Universal DMG · Windows NSIS EXE · 未公证版本首次使用可能提示系统授权</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <p class="brand"><span class="brand-logo">&#x2328;</span> buff<span class="accent">Term</span></p>
+        <p class="dim">本地优先的 SSH 管理与 AI Agent 终端</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/shaguocgl/buff-term" target="_blank" rel="noopener">GitHub 仓库</a>
+        <a href="https://github.com/shaguocgl/buff-term/releases" target="_blank" rel="noopener">Releases</a>
+        <a href="https://github.com/shaguocgl/buff-term/tree/main/docs" target="_blank" rel="noopener">设计文档</a>
+      </div>
+      <p class="dim copy">© 2026 buffTerm · MIT License</p>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <img id="lightboxImg" src="" alt="预览" />
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
