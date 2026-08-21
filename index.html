@@ -101,16 +101,32 @@
           <span>macOS Universal</span><i></i><span>Windows x64</span><i></i><span>MIT License</span>
         </div>
       </div>
-      <div class="terminal-card reveal">
-        <div class="term-bar"><span class="t-red"></span><span class="t-yellow"></span><span class="t-green"></span><em>buffterm — zsh</em></div>
-        <div class="term-body" id="termBody">
-          <p><span class="c-user">you@local</span><span class="c-col">:</span><span class="c-path">~</span><span class="c-sym">$</span> <span class="c-cmd">buffterm connect prod-01</span></p>
-          <p class="dim">&#128274; 已通过系统钥匙串解密凭据</p>
-          <p><span class="c-user">you@local</span><span class="c-col">:</span><span class="c-path">~</span><span class="c-sym">$</span> <span class="c-cmd">ai 帮我排查磁盘空间</span></p>
-          <p class="dim">&#129504; Agent 正在执行 read_file + exec_command…</p>
-          <p><span class="c-good">&#10003; 磁盘占用 76%，建议清理 /var/log 下的旧日志</span></p>
-          <p><span class="c-user">you@local</span><span class="c-col">:</span><span class="c-path">~</span><span class="c-sym">$</span> <span class="c-cmd blink">&#9608;</span></p>
+      <div class="chat-card reveal">
+        <div class="chat-bar"><span class="t-red"></span><span class="t-yellow"></span><span class="t-green"></span><em>buffTerm — AI Agent</em></div>
+        <div class="chat-body">
+          <div class="chat-row user"><div class="chat-msg">帮我排查一下服务器的磁盘空间</div></div>
+          <div class="chat-row ai">
+            <span class="chat-ai-icon">&#129504;</span>
+            <div>
+              <div class="chat-msg">好的，我先读取磁盘占用和 /var/log 目录情况…</div>
+              <div class="chat-tool">&#8250; exec_command: df -h &amp;&amp; du -sh /var/log/*</div>
+            </div>
+          </div>
+          <div class="chat-row ai">
+            <span class="chat-ai-icon">&#129504;</span>
+            <div>
+              <div class="chat-msg">磁盘占用 <b class="c-good">76%</b>，/var/log 下有约 3.2G 旧日志，建议先归档再清理。</div>
+            </div>
+          </div>
+          <div class="chat-row user"><div class="chat-msg">顺手看看内存趋势</div></div>
+          <div class="chat-row ai">
+            <span class="chat-ai-icon">&#129504;</span>
+            <div>
+              <div class="chat-msg">内存使用率 <b class="c-good">62%</b>，近 7 天趋势平稳，暂无需处理。</div>
+            </div>
+          </div>
         </div>
+        <div class="chat-input"><span></span><i>&#8629;</i></div>
       </div>
     </section>
 
