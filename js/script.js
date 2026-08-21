@@ -122,24 +122,66 @@
     });
   });
 
-  /* ---------- 截图切换 ---------- */
+  /* ---------- 实拍切换（文字导航 + 多图） ---------- */
+  const SHOW_MODULES = [
+    { title: 'AI Agent 会话', imgs: ['pic/ai-agent.png'] },
+    { title: '开放 MCP 服务', imgs: ['pic/ai-mcp.png'] },
+    { title: 'AI 大模型配置', imgs: ['pic/ai-api-conf.png'] },
+    { title: '终端防护', imgs: ['pic/ai-terminal-protection-01.png', 'pic/ai-terminal-protection-02.png'] },
+    { title: 'AI 巡检', imgs: ['pic/ai-inspection-01.png', 'pic/ai-inspection-02.png'] },
+    { title: '指标监控', imgs: ['pic/data-monitor.png'] },
+  ];
   const main = document.getElementById('showMain');
   const cap = document.getElementById('showCaption');
-  const thumbs = document.getElementById('showThumbs');
-  thumbs.addEventListener('click', (e) => {
-    const btn = e.target.closest('button');
-    if (!btn) return;
-    thumbs.querySelectorAll('button').forEach((b) => b.classList.remove('active'));
-    btn.classList.add('active');
+  const showNav = document.getElementById('showNav');
+  const dots = document.getElementById('showDots');
+  const prevBtn = document.getElementById('prevImg');
+  const nextBtn = document.getElementById('nextImg');
+  let modIdx = 0, imgIdx = 0;
+
+  function renderNav() {
+    showNav.innerHTML = '';
+    SHOW_MODULES.forEach((m, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'show-item' + (i === modIdx ? ' active' : '');
+      btn.innerHTML = '<span class="show-idx">0' + (i + 1) + '</span>' + m.title +
+        (m.imgs.length > 1 ? '<span class="show-multi">' + m.imgs.length + ' 图</span>' : '');
+      btn.addEventListener('click', () => { select(i, 0); });
+      showNav.appendChild(btn);
+    });
+  }
+  function renderDots() {
+    const m = SHOW_MODULES[modIdx];
+    dots.innerHTML = '';
+    if (m.imgs.length < 2) { dots.style.display = 'none'; return; }
+    dots.style.display = 'flex';
+    m.imgs.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = i === imgIdx ? 'active' : '';
+      d.setAttribute('aria-label', '第 ' + (i + 1) + ' 张');
+      d.addEventListener('click', () => select(modIdx, i));
+      dots.appendChild(d);
+    });
+  }
+  function show() {
+    const m = SHOW_MODULES[modIdx];
     main.style.opacity = 0;
     setTimeout(() => {
-      main.src = btn.dataset.src;
-      main.alt = btn.dataset.cap;
-      cap.textContent = btn.dataset.cap;
+      main.src = m.imgs[imgIdx];
+      main.alt = m.title;
+      cap.textContent = m.title + (m.imgs.length > 1 ? ' · ' + (imgIdx + 1) + '/' + m.imgs.length : '');
       main.style.opacity = 1;
-    }, 160);
-  });
-  main.style.transition = 'opacity .16s';
+    }, 120);
+  }
+  function select(mi, ii) { modIdx = mi; imgIdx = ii; renderNav(); renderDots(); show(); }
+  function step(d) {
+    const m = SHOW_MODULES[modIdx];
+    imgIdx = (imgIdx + d + m.imgs.length) % m.imgs.length;
+    renderDots(); show();
+  }
+  prevBtn.addEventListener('click', (e) => { e.stopPropagation(); step(-1); });
+  nextBtn.addEventListener('click', (e) => { e.stopPropagation(); step(1); });
+  renderNav(); renderDots();
 
   /* ---------- 灯箱 ---------- */
   const lb = document.getElementById('lightbox');
