@@ -40,7 +40,23 @@ img { display: block; max-width: 100%; }
 .nav.scrolled { border-color: var(--line); background: rgba(5, 5, 8, 0.82); }
 .nav-inner { max-width: 1120px; margin: 0 auto; padding: 0 22px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; letter-spacing: .2px; }
-.brand-logo { display: block; width: 30px; height: 30px; border-radius: 8px; object-fit: cover; box-shadow: 0 0 0 1px rgba(255,255,255,.14), 0 0 22px rgba(34,211,238,.4); }
+.brand-logo {
+  display: block;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  object-fit: cover;
+  /* 白色悬浮光晕：底部更亮、向上渐隐，无生硬描边 */
+  box-shadow:
+    0 8px 22px rgba(255, 255, 255, 0.26),
+    0 2px 8px rgba(255, 255, 255, 0.18),
+    0 0 40px rgba(255, 255, 255, 0.14);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.brand:hover .brand-logo { transform: translateY(-1px); box-shadow:
+    0 12px 30px rgba(255, 255, 255, 0.34),
+    0 3px 10px rgba(255, 255, 255, 0.22),
+    0 0 52px rgba(255, 255, 255, 0.18); }
 .accent { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .nav-links { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--dim); }
 .nav-links a { transition: color .2s; }
