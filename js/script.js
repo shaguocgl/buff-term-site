@@ -163,15 +163,18 @@
       dots.appendChild(d);
     });
   }
+  // 预加载全部实拍图，切换即时生效
+  SHOW_MODULES.forEach((m) => m.imgs.forEach((src) => { const im = new Image(); im.src = src; }));
+
   function show() {
     const m = SHOW_MODULES[modIdx];
-    main.style.opacity = 0;
-    setTimeout(() => {
-      main.src = m.imgs[imgIdx];
-      main.alt = m.title;
-      cap.textContent = m.title + (m.imgs.length > 1 ? ' · ' + (imgIdx + 1) + '/' + m.imgs.length : '');
-      main.style.opacity = 1;
-    }, 120);
+    main.src = m.imgs[imgIdx];
+    main.alt = m.title;
+    cap.textContent = m.title + (m.imgs.length > 1 ? ' · ' + (imgIdx + 1) + '/' + m.imgs.length : '');
+    // 弹出动画：先重置再触发，保证每次切换都有动画
+    main.classList.remove('switching');
+    void main.offsetWidth;
+    main.classList.add('switching');
   }
   function select(mi, ii) { modIdx = mi; imgIdx = ii; renderNav(); renderDots(); show(); }
   function step(d) {
