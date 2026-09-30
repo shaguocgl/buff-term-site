@@ -11,15 +11,15 @@
       <image:title>buffTerm Logo</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://shaguocgl.github.io/buff-term-site/pic/ai-agent.png</image:loc>
+      <image:loc>https://shaguocgl.github.io/buff-term-site/pic/ai-agent.webp</image:loc>
       <image:title>buffTerm AI Agent</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://shaguocgl.github.io/buff-term-site/pic/ai-inspection-01.png</image:loc>
+      <image:loc>https://shaguocgl.github.io/buff-term-site/pic/ai-inspection-01.webp</image:loc>
       <image:title>buffTerm AI 巡检报告</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://shaguocgl.github.io/buff-term-site/pic/data-monitor.png</image:loc>
+      <image:loc>https://shaguocgl.github.io/buff-term-site/pic/data-monitor.webp</image:loc>
       <image:title>buffTerm 资源监控</image:title>
     </image:image>
   </url>

@@ -124,12 +124,12 @@
 
   /* ---------- 实拍切换（文字导航 + 多图） ---------- */
   const SHOW_MODULES = [
-    { title: 'AI Agent 会话', imgs: ['pic/ai-agent.png'] },
-    { title: '开放 MCP 服务', imgs: ['pic/ai-mcp.png'] },
-    { title: 'AI 大模型配置', imgs: ['pic/ai-api-conf.png'] },
-    { title: '终端防护', imgs: ['pic/ai-terminal-protection-01.png', 'pic/ai-terminal-protection-02.png'] },
-    { title: 'AI 巡检', imgs: ['pic/ai-inspection-01.png', 'pic/ai-inspection-02.png'] },
-    { title: '指标监控', imgs: ['pic/data-monitor.png'] },
+    { title: 'AI Agent 会话', imgs: ['pic/ai-agent.webp'] },
+    { title: '开放 MCP 服务', imgs: ['pic/ai-mcp.webp'] },
+    { title: 'AI 大模型配置', imgs: ['pic/ai-api-conf.webp'] },
+    { title: '终端防护', imgs: ['pic/ai-terminal-protection-01.webp', 'pic/ai-terminal-protection-02.webp'] },
+    { title: 'AI 巡检', imgs: ['pic/ai-inspection-01.webp', 'pic/ai-inspection-02.webp'] },
+    { title: '指标监控', imgs: ['pic/data-monitor.webp'] },
   ];
   const main = document.getElementById('showMain');
   const cap = document.getElementById('showCaption');
