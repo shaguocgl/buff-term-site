@@ -1,26 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://shaguocgl.github.io/buff-term-site/</loc>
-    <lastmod>2026-08-21</lastmod>
+    <loc>https://buffterm.com/</loc>
+    <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://buffterm.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://buffterm.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://buffterm.com/"/>
     <image:image>
-      <image:loc>https://shaguocgl.github.io/buff-term-site/pic/logo.png</image:loc>
+      <image:loc>https://buffterm.com/pic/logo.png</image:loc>
       <image:title>buffTerm Logo</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://shaguocgl.github.io/buff-term-site/pic/ai-agent.webp</image:loc>
-      <image:title>buffTerm AI Agent</image:title>
+      <image:loc>https://buffterm.com/pic/ai-agent.webp</image:loc>
+      <image:title>buffTerm AI Agent 会话</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://shaguocgl.github.io/buff-term-site/pic/ai-inspection-01.webp</image:loc>
+      <image:loc>https://buffterm.com/pic/ai-inspection-01.webp</image:loc>
       <image:title>buffTerm AI 巡检报告</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://shaguocgl.github.io/buff-term-site/pic/data-monitor.webp</image:loc>
+      <image:loc>https://buffterm.com/pic/data-monitor.webp</image:loc>
       <image:title>buffTerm 资源监控</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://buffterm.com/en/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://buffterm.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://buffterm.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://buffterm.com/"/>
+    <image:image>
+      <image:loc>https://buffterm.com/pic/logo.png</image:loc>
+      <image:title>buffTerm logo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://buffterm.com/pic/ai-agent.webp</image:loc>
+      <image:title>buffTerm AI Agent chat</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://buffterm.com/pic/ai-inspection-01.webp</image:loc>
+      <image:title>buffTerm AI inspection report</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://buffterm.com/pic/data-monitor.webp</image:loc>
+      <image:title>buffTerm resource monitoring</image:title>
     </image:image>
   </url>
 </urlset>

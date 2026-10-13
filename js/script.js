@@ -1,6 +1,50 @@
 (function () {
   'use strict';
 
+  /* ---------- 语言与站点根路径 ---------- */
+  // 中 / 英两个页面共用本脚本：文案按 <html lang> 选择，
+  // 资源路径前缀由 <html data-root> 声明（根目录页为 ""，/en/ 子目录页为 "../"）。
+  const LANG = (document.documentElement.getAttribute('lang') || 'zh').toLowerCase();
+  const IS_EN = LANG.indexOf('en') === 0;
+  const ROOT = document.documentElement.getAttribute('data-root') || '';
+  const img = (name) => ROOT + 'pic/' + name;
+
+  const TEXT = IS_EN
+    ? {
+        phrases: [
+          'SSH terminal · dangerous-command blocking · AI inspection · MCP server',
+          'Describe the task — the AI does the ops',
+          'Bilingual UI · credentials encrypted locally',
+        ],
+        imagesSuffix: (n) => n + ' images',
+        imageLabel: (i) => 'Image ' + i,
+        modules: [
+          { title: 'AI Agent chat', imgs: [img('ai-agent.webp')] },
+          { title: 'MCP server', imgs: [img('ai-mcp.webp')] },
+          { title: 'AI model settings', imgs: [img('ai-api-conf.webp')] },
+          { title: 'Terminal guard', imgs: [img('ai-terminal-protection-01.webp'), img('ai-terminal-protection-02.webp')] },
+          { title: 'AI inspection', imgs: [img('ai-inspection-01.webp'), img('ai-inspection-02.webp')] },
+          { title: 'Metrics monitoring', imgs: [img('data-monitor.webp')] },
+        ],
+      }
+    : {
+        phrases: [
+          'SSH 终端 · 危险命令拦截 · AI 巡检整改 · MCP 服务',
+          '自然语言让 AI 帮你运维服务器',
+          '中英双语界面 · 凭据本地加密',
+        ],
+        imagesSuffix: (n) => n + ' 图',
+        imageLabel: (i) => '第 ' + i + ' 张',
+        modules: [
+          { title: 'AI Agent 会话', imgs: [img('ai-agent.webp')] },
+          { title: '开放 MCP 服务', imgs: [img('ai-mcp.webp')] },
+          { title: 'AI 大模型配置', imgs: [img('ai-api-conf.webp')] },
+          { title: '终端防护', imgs: [img('ai-terminal-protection-01.webp'), img('ai-terminal-protection-02.webp')] },
+          { title: 'AI 巡检', imgs: [img('ai-inspection-01.webp'), img('ai-inspection-02.webp')] },
+          { title: '指标监控', imgs: [img('data-monitor.webp')] },
+        ],
+      };
+
   /* ---------- 粒子网络背景 ---------- */
   const canvas = document.getElementById('bg');
   const ctx = canvas.getContext('2d');
@@ -64,7 +108,7 @@
   }
 
   /* ---------- 打字机 ---------- */
-  const phrases = ['SSH 终端 · 危险命令拦截 · AI 巡检整改 · MCP 服务', '自然语言让 AI 帮你运维服务器', '本地优先 · 数据不出本机'];
+  const phrases = TEXT.phrases;
   const tw = document.getElementById('typewriter');
   let pi = 0, ci = 0, deleting = false;
   function type() {
@@ -123,14 +167,7 @@
   });
 
   /* ---------- 实拍切换（文字导航 + 多图） ---------- */
-  const SHOW_MODULES = [
-    { title: 'AI Agent 会话', imgs: ['pic/ai-agent.webp'] },
-    { title: '开放 MCP 服务', imgs: ['pic/ai-mcp.webp'] },
-    { title: 'AI 大模型配置', imgs: ['pic/ai-api-conf.webp'] },
-    { title: '终端防护', imgs: ['pic/ai-terminal-protection-01.webp', 'pic/ai-terminal-protection-02.webp'] },
-    { title: 'AI 巡检', imgs: ['pic/ai-inspection-01.webp', 'pic/ai-inspection-02.webp'] },
-    { title: '指标监控', imgs: ['pic/data-monitor.webp'] },
-  ];
+  const SHOW_MODULES = TEXT.modules;
   const main = document.getElementById('showMain');
   const cap = document.getElementById('showCaption');
   const showNav = document.getElementById('showNav');
@@ -145,7 +182,7 @@
       const btn = document.createElement('button');
       btn.className = 'show-item' + (i === modIdx ? ' active' : '');
       btn.innerHTML = '<span class="show-idx">0' + (i + 1) + '</span>' + m.title +
-        (m.imgs.length > 1 ? '<span class="show-multi">' + m.imgs.length + ' 图</span>' : '');
+        (m.imgs.length > 1 ? '<span class="show-multi">' + TEXT.imagesSuffix(m.imgs.length) + '</span>' : '');
       btn.addEventListener('click', () => { select(i, 0); });
       showNav.appendChild(btn);
     });
@@ -158,7 +195,7 @@
     m.imgs.forEach((_, i) => {
       const d = document.createElement('button');
       d.className = i === imgIdx ? 'active' : '';
-      d.setAttribute('aria-label', '第 ' + (i + 1) + ' 张');
+      d.setAttribute('aria-label', TEXT.imageLabel(i + 1));
       d.addEventListener('click', () => select(modIdx, i));
       dots.appendChild(d);
     });

@@ -1,30 +1,34 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-root="">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>buffTerm — 本地优先的 SSH 管理与 AI Agent 终端 | 服务器运维利器</title>
-  <meta name="description" content="buffTerm 是一款本地优先的桌面 SSH 管理与 AI Agent 工具：多标签 SSH 终端、终端危险命令拦截、AES-256 加密凭据、AI 巡检与一键整改、MCP 服务、资源监控与趋势预测。数据不出本机，macOS / Windows 全平台可用。" />
-  <meta name="keywords" content="buffTerm, SSH 管理工具, SSH 客户端, AI Agent, 服务器运维, 终端工具, 危险命令拦截, MCP 服务, AI 巡检, 服务器监控, 密钥管理, macOS SSH, Windows SSH" />
+  <title>buffTerm — 面向 AI 的 SSH 工具与 MCP 服务器 | 中英双语 AI 运维终端</title>
+  <meta name="description" content="buffTerm 是一款面向 AI 的 SSH 工具与 MCP 服务器：内置自研 AI Agent 编排层，用自然语言查询状态、排查故障、部署服务；可把主机开放为 MCP 服务供 Codex / Claude Desktop 调用。多标签 SSH 终端、终端危险命令拦截、AES-256-GCM 凭据本地加密、AI 巡检与一键整改、资源监控与趋势预测，中英文界面一键切换。配置、凭据与审计数据只存本机，macOS / Windows 可用。" />
+  <meta name="keywords" content="buffTerm, SSH 工具, SSH 客户端, MCP 服务器, MCP 服务, AI Agent, AI 运维, 服务器运维, 终端工具, 危险命令拦截, AI 巡检, 服务器监控, 中英文界面, 密钥管理, macOS SSH, Windows SSH" />
   <meta name="author" content="buffTerm" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#050508" />
-  <link rel="canonical" href="https://shaguocgl.github.io/buff-term-site/" />
+  <link rel="canonical" href="https://buffterm.com/" />
+  <link rel="alternate" hreflang="zh-CN" href="https://buffterm.com/" />
+  <link rel="alternate" hreflang="en" href="https://buffterm.com/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://buffterm.com/" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="buffTerm" />
-  <meta property="og:title" content="buffTerm — 本地优先的 SSH 管理与 AI Agent 终端" />
-  <meta property="og:description" content="多标签 SSH 终端、危险命令拦截、加密凭据、AI 巡检整改与 MCP 服务。本地优先，数据不出本机。" />
-  <meta property="og:url" content="https://shaguocgl.github.io/buff-term-site/" />
-  <meta property="og:image" content="https://shaguocgl.github.io/buff-term-site/pic/logo.png" />
+  <meta property="og:title" content="buffTerm — 面向 AI 的 SSH 工具与 MCP 服务器" />
+  <meta property="og:description" content="自研 AI Agent 编排层 + 协议级 SSH：多标签终端、危险命令拦截、凭据本地加密、AI 巡检整改、对外 MCP 服务，中英文界面一键切换。" />
+  <meta property="og:url" content="https://buffterm.com/" />
+  <meta property="og:image" content="https://buffterm.com/pic/logo.png" />
   <meta property="og:locale" content="zh_CN" />
+  <meta property="og:locale:alternate" content="en_US" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="buffTerm — 本地优先的 SSH 管理与 AI Agent 终端" />
-  <meta name="twitter:description" content="多标签 SSH 终端、危险命令拦截、加密凭据、AI 巡检整改与 MCP 服务。本地优先，数据不出本机。" />
-  <meta name="twitter:image" content="https://shaguocgl.github.io/buff-term-site/pic/logo.png" />
+  <meta name="twitter:title" content="buffTerm — 面向 AI 的 SSH 工具与 MCP 服务器" />
+  <meta name="twitter:description" content="自研 AI Agent 编排层 + 协议级 SSH：多标签终端、危险命令拦截、凭据本地加密、AI 巡检整改、对外 MCP 服务，中英文界面一键切换。" />
+  <meta name="twitter:image" content="https://buffterm.com/pic/logo.png" />
 
   <link rel="icon" type="image/png" href="pic/logo.png" />
   <link rel="preload" as="style" href="css/style.css" />
@@ -36,23 +40,23 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "buffTerm",
-    "alternateName": "buffTerm SSH AI Agent",
-    "description": "本地优先的桌面 SSH 管理与自研 AI Agent 终端：多标签 SSH 会话、终端危险命令拦截、AES-256-GCM 加密凭据存储、AI 巡检与一键整改、对外 MCP 服务、资源监控与趋势预测。",
-    "url": "https://shaguocgl.github.io/buff-term-site/",
+    "alternateName": "buffTerm SSH AI Agent & MCP Server",
+    "description": "面向 AI 的 SSH 工具与 MCP 服务器：自研 AI Agent 编排层、多标签 SSH 会话、终端危险命令拦截、AES-256-GCM 凭据本地加密、AI 巡检与一键整改、对外 MCP 服务、资源监控与趋势预测、中英文双语界面。",
+    "url": "https://buffterm.com/",
     "downloadUrl": "https://github.com/shaguocgl/buff-term/releases/latest",
     "operatingSystem": "macOS, Windows, Linux",
     "applicationCategory": "DeveloperApplication",
-    "softwareVersion": "1.0.3",
+    "softwareVersion": "1.4.0",
     "inLanguage": "zh-CN",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "screenshot": [
-      "https://shaguocgl.github.io/buff-term-site/pic/ai-agent.webp",
-      "https://shaguocgl.github.io/buff-term-site/pic/ai-inspection-01.webp",
-      "https://shaguocgl.github.io/buff-term-site/pic/data-monitor.webp"
+      "https://buffterm.com/pic/ai-agent.webp",
+      "https://buffterm.com/pic/ai-inspection-01.webp",
+      "https://buffterm.com/pic/data-monitor.webp"
     ],
     "featureList": [
-      "多标签 SSH 终端", "终端危险命令拦截", "加密凭据存储",
-      "自研 AI Agent", "AI 巡检与一键整改", "对外 MCP 服务", "资源监控与趋势预测"
+      "自研 AI Agent", "对外 MCP 服务", "AI 巡检与一键整改", "资源监控与趋势预测",
+      "终端危险命令拦截", "加密凭据存储", "中英文双语界面", "SFTP 与内置文件编辑器", "多标签 SSH 会话"
     ]
   }
   </script>
@@ -61,11 +65,11 @@
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "buffTerm",
-    "url": "https://shaguocgl.github.io/buff-term-site/",
+    "url": "https://buffterm.com/",
     "inLanguage": "zh-CN"
   }
   </script>
-</head></head>
+</head>
 <body>
   <canvas id="bg" aria-hidden="true"></canvas>
 
@@ -75,13 +79,16 @@
         <img class="brand-logo" src="pic/logo.png" alt="buffTerm" />
         <span>buff<span class="accent">Term</span></span>
       </a>
-      <div class="nav-links">
-        <a href="#features">功能</a>
-        <a href="#showcase">实拍</a>
-        <a href="#stack">技术</a>
-        <a href="#download" class="nav-cta">下载</a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#features">功能</a>
+          <a href="#showcase">实拍</a>
+          <a href="#stack">技术</a>
+          <a href="#download" class="nav-cta">下载</a>
+        </div>
+        <a class="lang-switch" href="en/" hreflang="en" lang="en" title="Switch to English" aria-label="Switch to English">EN</a>
+        <button class="nav-burger" id="navBurger" aria-label="菜单"><span></span><span></span><span></span></button>
       </div>
-      <button class="nav-burger" id="navBurger" aria-label="菜单"><span></span><span></span><span></span></button>
     </div>
   </nav>
 
@@ -90,7 +97,7 @@
     <section class="hero">
       <div class="hero-glow"></div>
       <div class="hero-content">
-        <div class="hero-badge reveal"><span class="dot"></span> 本地优先 · 数据不出本机</div>
+        <div class="hero-badge reveal"><span class="dot"></span> 面向 AI · 凭据本地加密</div>
         <h1 class="reveal">让 <span class="grad">AI Agent</span><br/>替你运维服务器</h1>
         <p class="hero-sub reveal" id="typewriter">SSH 终端 · 危险命令拦截 · AI 巡检整改 · MCP 服务</p>
         <div class="hero-actions reveal">
@@ -98,7 +105,7 @@
           <a class="btn btn-ghost" href="#showcase">查看实拍效果</a>
         </div>
         <div class="hero-meta reveal">
-          <span>macOS Universal</span><i></i><span>Windows x64</span><i></i><span>MIT License</span>
+          <span>macOS Universal</span><i></i><span>Windows x64</span><i></i><span>中 / EN</span><i></i><span>MIT License</span>
         </div>
       </div>
       <div class="hero-shot reveal">
@@ -108,9 +115,9 @@
 
     <!-- 数字统计 -->
     <section class="stats">
-      <div class="stat reveal"><b data-count="8">0</b><span>核心能力模块</span></div>
+      <div class="stat reveal"><b data-count="9">0</b><span>核心能力模块</span></div>
       <div class="stat reveal"><b data-count="90">0</b><span>历史指标追踪(天)</span></div>
-      <div class="stat reveal"><b data-count="100">0</b><span>% 本地数据掌控</span></div>
+      <div class="stat reveal"><b data-count="2">0</b><span>界面语言（中 / 英）</span></div>
       <div class="stat reveal"><b data-count="2">0</b><span>跨平台支持</span></div>
     </section>
 
@@ -119,7 +126,7 @@
       <div class="section-head reveal">
         <span class="kicker">CAPABILITIES</span>
         <h2>一个终端，接管你的服务器</h2>
-        <p>自研 AI Agent 编排层 + 协议级 SSH，能力全部在本地闭环。</p>
+        <p>自研 AI Agent 编排层 + 协议级 SSH：AI 能力与安全管控全部在应用内完成，不依赖任何第三方 Agent 框架。</p>
       </div>
       <div class="grid">
         <article class="card reveal" data-tilt>
@@ -129,6 +136,33 @@
           <ul>
             <li>exec / read / 巡检 / 趋势分析</li>
             <li>三级安全级别 + 自定义规则</li>
+          </ul>
+        </article>
+        <article class="card reveal" data-tilt>
+          <div class="card-ico i-mcp">&#128268;</div>
+          <h3>对外 MCP 服务</h3>
+          <p>把勾选服务器开放给 Codex / Claude Desktop。Streamable HTTP + token 认证，只读 / 管控 / 放行三档权限。</p>
+          <ul>
+            <li>host 参数化工具集</li>
+            <li>仅监听 127.0.0.1，token 可轮换</li>
+          </ul>
+        </article>
+        <article class="card reveal" data-tilt>
+          <div class="card-ico i-inspect">&#128269;</div>
+          <h3>AI 巡检与一键整改</h3>
+          <p>只读基线采集 + 中 / 英巡检报告（含木马 / 挖矿风险），确认后自动执行整改步骤，全程审计与邮件通知。</p>
+          <ul>
+            <li>动态命令白名单，只读安全</li>
+            <li>整改步骤可编辑、可重试</li>
+          </ul>
+        </article>
+        <article class="card reveal" data-tilt>
+          <div class="card-ico i-monitor">&#128200;</div>
+          <h3>资源监控与趋势</h3>
+          <p>CPU / 内存 / 磁盘 / 负载仪表盘，历史趋势最长 90 天，线性回归估算资源增速与达阈值天数。</p>
+          <ul>
+            <li>每 5 秒自动刷新</li>
+            <li>Agent 对话自动采集趋势数据</li>
           </ul>
         </article>
         <article class="card reveal" data-tilt>
@@ -145,35 +179,35 @@
           <h3>加密凭据存储</h3>
           <p>密码与 API Key 经 AES-256-GCM 加密落 SQLite，主密钥存系统钥匙串，数据库拷走也无法解密。</p>
           <ul>
-            <li>主密钥内存缓存，一次授权</li>
+            <li>私钥与 API Key 不进模型上下文</li>
             <li>macOS / Windows / Linux 钥匙串</li>
           </ul>
         </article>
         <article class="card reveal" data-tilt>
-          <div class="card-ico i-mcp">&#128268;</div>
-          <h3>对外 MCP 服务</h3>
-          <p>把勾选服务器开放给 Codex / Claude Desktop。Streamable HTTP + token 认证，只读 / 管控 / 放行三档权限。</p>
+          <div class="card-ico i-i18n">&#127760;</div>
+          <h3>中英文双语界面</h3>
+          <p>侧边栏一键切换中 / 英，无需重启。界面文字、提示、弹窗、终端提示、后端错误与邮件通知全部跟随语言。</p>
           <ul>
-            <li>host 参数化工具集</li>
-            <li>管控模式命中规则人工确认</li>
+            <li>AI 提示词与工具描述同步切换</li>
+            <li>巡检报告按当前语言生成</li>
           </ul>
         </article>
         <article class="card reveal" data-tilt>
-          <div class="card-ico i-inspect">&#128269;</div>
-          <h3>AI 巡检与一键整改</h3>
-          <p>只读基线采集 + 中文巡检报告（含木马 / 挖矿风险），确认后自动执行整改步骤，全程审计与邮件通知。</p>
+          <div class="card-ico i-file">&#128193;</div>
+          <h3>SFTP 与文件编辑器</h3>
+          <p>结构化 SFTP 目录管理，行内悬浮按钮即可在内置 CodeMirror 6 编辑器打开远端文件并保存。</p>
           <ul>
-            <li>动态命令白名单，只读安全</li>
-            <li>整改步骤可编辑、可重试</li>
+            <li>批量上传：多选 / 并发 / 冲突汇总确认</li>
+            <li>原子保存并沿用原权限，敏感路径二次确认</li>
           </ul>
         </article>
         <article class="card reveal" data-tilt>
-          <div class="card-ico i-monitor">&#128200;</div>
-          <h3>资源监控与趋势</h3>
-          <p>CPU / 内存 / 磁盘 / 负载仪表盘，历史趋势最长 90 天，线性回归估算资源增速与达阈值天数。</p>
+          <div class="card-ico i-term">&#128421;</div>
+          <h3>多标签 SSH 会话</h3>
+          <p>协议级 SSH（russh），不调用系统 ssh / sftp；多标签并行、按主机复用连接、空闲自动回收。</p>
           <ul>
-            <li>每 5 秒自动刷新</li>
-            <li>Agent 对话自动采集趋势数据</li>
+            <li>密码 / 私钥 / 加密私钥 / ssh-agent</li>
+            <li>首次连接校验主机指纹，断线可自动重连</li>
           </ul>
         </article>
       </div>
@@ -232,12 +266,13 @@
     <div class="footer-inner">
       <div>
         <p class="brand"><img class="brand-logo" src="pic/logo.png" alt="buffTerm" /> buff<span class="accent">Term</span></p>
-        <p class="dim">本地优先的 SSH 管理与 AI Agent 终端</p>
+        <p class="dim">面向 AI 的 SSH 工具与 MCP 服务器</p>
       </div>
       <div class="footer-links">
         <a href="https://github.com/shaguocgl/buff-term" target="_blank" rel="noopener">GitHub 仓库</a>
         <a href="https://github.com/shaguocgl/buff-term/releases" target="_blank" rel="noopener">Releases</a>
         <a href="https://github.com/shaguocgl/buff-term/tree/main/docs" target="_blank" rel="noopener">设计文档</a>
+        <a href="en/" hreflang="en" lang="en">English</a>
       </div>
       <p class="dim copy">© 2026 buffTerm · MIT License</p>
     </div>

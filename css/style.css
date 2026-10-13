@@ -69,10 +69,14 @@ img { display: block; max-width: 100%; }
     0 3px 10px rgba(255, 255, 255, 0.24),
     0 0 56px rgba(255, 255, 255, 0.2); }
 .accent { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.nav-right { display: flex; align-items: center; gap: 16px; }
 .nav-links { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--dim); }
 .nav-links a { transition: color .2s; }
 .nav-links a:hover { color: var(--text); }
 .nav-links .nav-cta { color: var(--cyan); }
+/* 语言切换（中 / EN）：两个语言页面互为镜像，用链接跳转以保证各语言独立 URL 与 SEO */
+.lang-switch { display: inline-flex; align-items: center; padding: 6px 13px; border: 1px solid var(--line-strong); border-radius: 99px; font-size: 13px; font-weight: 650; color: var(--dim); background: var(--panel); transition: color .2s, border-color .2s, box-shadow .2s; }
+.lang-switch:hover { color: var(--text); border-color: var(--cyan); box-shadow: 0 0 18px rgba(34,211,238,.22); }
 .nav-burger { display: none; flex-direction: column; gap: 5px; background: none; border: 0; cursor: pointer; }
 .nav-burger span { width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
 
@@ -126,6 +130,9 @@ img { display: block; max-width: 100%; }
 .i-mcp { color: var(--blue); box-shadow: 0 0 24px rgba(96,165,250,.25); }
 .i-inspect { color: #fbbf24; box-shadow: 0 0 24px rgba(251,191,36,.25); }
 .i-monitor { color: #f472b6; box-shadow: 0 0 24px rgba(244,114,182,.25); }
+.i-i18n { color: #38bdf8; box-shadow: 0 0 24px rgba(56,189,248,.25); }
+.i-file { color: #a3e635; box-shadow: 0 0 24px rgba(163,230,53,.25); }
+.i-term { color: #fb923c; box-shadow: 0 0 24px rgba(251,146,60,.25); }
 .card h3 { font-size: 18px; font-weight: 750; margin-bottom: 8px; }
 .card p { color: var(--dim); font-size: 14px; line-height: 1.7; margin-bottom: 12px; }
 .card ul { list-style: none; }

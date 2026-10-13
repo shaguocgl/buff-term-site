@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://shaguocgl.github.io/buff-term-site/sitemap.xml
+Sitemap: https://buffterm.com/sitemap.xml
