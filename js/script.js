@@ -346,7 +346,7 @@
 
   /* ---------- 最新版本 / 更新日志 ---------- */
   const RELEASES_API = 'https://api.github.com/repos/shaguocgl/buff-term/releases?per_page=3';
-  const RELEASES_CACHE_KEY = 'buffterm-releases-v2';
+  const RELEASES_CACHE_KEY = 'buffterm-releases-v3';
   const RELEASES_CACHE_TTL = 60 * 60 * 1000;
 
   function readReleaseCache() {
