@@ -22,12 +22,17 @@ buffTerm 的静态官网，纯 HTML / CSS / JS，直接部署到 GitHub Pages（
 
 ## 发版同步
 
-应用发布新版本后运行：
+应用发布新版本后：
+
+1. 运行版本同步脚本：
 
 ```bash
 node scripts/sync-version.mjs 1.4.5
 ```
 
 该脚本会同时更新两页 JSON-LD 的 `softwareVersion`、`dateModified` 与 `sitemap.xml` 的 `lastmod`。
+
+2. 同步更新日志：在 `index.html` 与 `en/index.html` 的 `#changelogList` 静态兜底中新增本次 `release-item`，保留最近 3 个版本；线上动态列表会从 GitHub Releases 自动拉取，静态列表用于 API 不可用时兜底。
+3. 更新日志文案与应用 `.github/release-notes/v<version>.md` 保持一致，中文页与英文页同时维护。
 
 访问：https://buffterm.com/
