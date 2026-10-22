@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>buffTerm — AI-first SSH Tool &amp; MCP Server | Bilingual AI Ops Terminal</title>
-  <meta name="description" content="buffTerm is an AI-first SSH tool and MCP server: a self-built AI agent orchestration layer lets you inspect, troubleshoot and deploy in natural language, and it can expose your hosts as an MCP server for Codex / Claude Desktop. Multi-tab SSH terminal, dangerous-command blocking, AES-256-GCM local credential encryption, AI inspection with one-click remediation, resource monitoring with trend forecasting, and a one-click Chinese / English UI. Config, credentials and audit data stay on your machine. Available for macOS and Windows." />
+  <title>buffTerm — AI-first SSH Tool &amp; MCP Server</title>
+  <meta name="description" content="AI-first SSH tool and MCP server with a self-built agent, dangerous-command guard, locally encrypted credentials and AI inspection. macOS &amp; Windows." />
   <meta name="keywords" content="buffTerm, SSH tool, SSH client, MCP server, AI agent, AI ops, server management, terminal tool, dangerous command blocking, AI inspection, server monitoring, bilingual UI, key management, macOS SSH, Windows SSH" />
   <meta name="author" content="buffTerm" />
   <meta name="robots" content="index, follow" />
@@ -20,7 +20,10 @@
   <meta property="og:title" content="buffTerm — AI-first SSH Tool &amp; MCP Server" />
   <meta property="og:description" content="Self-built AI agent orchestration plus protocol-level SSH: multi-tab terminal, dangerous-command blocking, locally encrypted credentials, AI inspection and remediation, MCP server, bilingual UI." />
   <meta property="og:url" content="https://buffterm.com/en/" />
-  <meta property="og:image" content="https://buffterm.com/pic/logo.png" />
+  <meta property="og:image" content="https://buffterm.com/pic/og-cover.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="buffTerm — AI-first SSH tool and MCP server" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="zh_CN" />
 
@@ -28,9 +31,11 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="buffTerm — AI-first SSH Tool &amp; MCP Server" />
   <meta name="twitter:description" content="Self-built AI agent orchestration plus protocol-level SSH: multi-tab terminal, dangerous-command blocking, locally encrypted credentials, AI inspection and remediation, MCP server, bilingual UI." />
-  <meta name="twitter:image" content="https://buffterm.com/pic/logo.png" />
+  <meta name="twitter:image" content="https://buffterm.com/pic/og-cover.jpg" />
 
   <link rel="icon" type="image/png" href="../pic/logo.png" />
+  <link rel="apple-touch-icon" href="../pic/logo.png" />
+  <link rel="preload" as="image" href="../pic/ai-agent.webp" fetchpriority="high" />
   <link rel="preload" as="style" href="../css/style.css" />
   <link rel="stylesheet" href="../css/style.css" />
 
@@ -44,9 +49,12 @@
     "description": "AI-first SSH tool and MCP server: a self-built AI agent orchestration layer, multi-tab SSH sessions, terminal dangerous-command blocking, AES-256-GCM local credential encryption, AI inspection with one-click remediation, an MCP server for external AI tools, resource monitoring with trend forecasting, and a bilingual Chinese / English UI.",
     "url": "https://buffterm.com/en/",
     "downloadUrl": "https://github.com/shaguocgl/buff-term/releases/latest",
-    "operatingSystem": "macOS, Windows, Linux",
+    "operatingSystem": "macOS, Windows",
     "applicationCategory": "DeveloperApplication",
-    "softwareVersion": "1.4.0",
+    "softwareVersion": "1.4.4",
+    "dateModified": "2026-10-22",
+    "license": "https://opensource.org/licenses/MIT",
+    "sameAs": ["https://github.com/shaguocgl/buff-term"],
     "inLanguage": "en",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
     "screenshot": [
@@ -69,25 +77,72 @@
     "inLanguage": "en"
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is buffTerm free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. buffTerm is open source under the MIT license; downloads are free. AI features require your own model API key." }
+      },
+      {
+        "@type": "Question",
+        "name": "Where are SSH credentials stored?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Locally in SQLite, encrypted with AES-256-GCM; the master key lives in the system keychain. Copying the database alone cannot decrypt them." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the AI see my password?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. SSH passwords, key passphrases and API keys never enter the model context, and command output is sanitized for secrets before it is sent. AI chats and inspection content are sent to the model provider you configure." }
+      },
+      {
+        "@type": "Question",
+        "name": "Which models are supported?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Any OpenAI-compatible endpoint, including DeepSeek, Qwen, Kimi, OpenAI and local Ollama. Each provider can hold multiple models with their own context windows." }
+      },
+      {
+        "@type": "Question",
+        "name": "What if macOS says the app is unsigned?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Current macOS builds are not notarized by Apple. Allow the app in System Settings → Privacy & Security on first launch; credential encryption and local storage are unaffected." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Linux supported?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Official installers are available for macOS and Windows; no official Linux package is provided yet." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the MCP server expose anything to the internet?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. It listens on 127.0.0.1 only, uses random token authentication, supports token rotation and three permission modes: read-only, guarded and allow-all." }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#top">Skip to content</a>
   <canvas id="bg" aria-hidden="true"></canvas>
 
   <nav class="nav" id="nav">
     <div class="nav-inner">
       <a class="brand" href="#top">
-        <img class="brand-logo" src="../pic/logo.png" alt="buffTerm" />
+        <img class="brand-logo" src="../pic/logo.png" alt="buffTerm" width="256" height="256" />
         <span>buff<span class="accent">Term</span></span>
       </a>
       <div class="nav-right">
-        <div class="nav-links">
+        <div class="nav-links" id="navLinks">
           <a href="#features">Features</a>
+          <a href="#quickstart">Quick start</a>
+          <a href="#security">Security</a>
           <a href="#showcase">Screenshots</a>
-          <a href="#stack">Tech</a>
+          <a href="#changelog">Changelog</a>
           <a href="#download" class="nav-cta">Download</a>
         </div>
+        <a class="nav-github" href="https://github.com/shaguocgl/buff-term" target="_blank" rel="noopener">GitHub</a>
         <a class="lang-switch" href="../" hreflang="zh-CN" lang="zh-CN" title="切换到中文" aria-label="切换到中文">中文</a>
-        <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
+        <button class="nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
       </div>
     </div>
   </nav>
@@ -99,7 +154,7 @@
       <div class="hero-content">
         <div class="hero-badge reveal"><span class="dot"></span> AI-first · credentials encrypted locally</div>
         <h1 class="reveal">Let an <span class="grad">AI Agent</span><br/>run your servers</h1>
-        <p class="hero-sub reveal" id="typewriter">SSH terminal · dangerous-command blocking · AI inspection · MCP server</p>
+        <p class="hero-sub reveal" id="typewriter">SSH terminal&nbsp;· dangerous-command blocking&nbsp;· AI inspection&nbsp;· MCP&nbsp;server</p>
         <div class="hero-actions reveal">
           <a class="btn btn-primary" href="#download">&#8595; Download buffTerm</a>
           <a class="btn btn-ghost" href="#showcase">See it in action</a>
@@ -109,16 +164,17 @@
         </div>
       </div>
       <div class="hero-shot reveal">
-        <img src="../pic/ai-agent.webp" alt="buffTerm AI Agent chat" />
+        <img src="../pic/ai-agent.webp" alt="buffTerm AI Agent chat" width="2400" height="1600" fetchpriority="high" tabindex="0" role="button" aria-label="Zoom in on the app screenshot" />
+        <span class="zoom-hint">Tap to zoom</span>
       </div>
     </section>
 
     <!-- Stats -->
     <section class="stats">
-      <div class="stat reveal"><b data-count="9">0</b><span>Core capability modules</span></div>
-      <div class="stat reveal"><b data-count="90">0</b><span>Days of metric history</span></div>
-      <div class="stat reveal"><b data-count="2">0</b><span>UI languages (EN / 中文)</span></div>
-      <div class="stat reveal"><b data-count="2">0</b><span>Platforms supported</span></div>
+      <div class="stat reveal"><b data-count="9">9</b><span>Core capability modules</span></div>
+      <div class="stat reveal"><b data-count="90">90</b><span>Days of metric history</span></div>
+      <div class="stat reveal"><b data-count="3">3</b><span>Security approval levels</span></div>
+      <div class="stat reveal"><b data-count="0">0</b><span>Credentials stored in the cloud</span></div>
     </section>
 
     <!-- Features -->
@@ -143,8 +199,8 @@
           <h3>MCP server</h3>
           <p>Expose selected hosts to Codex / Claude Desktop. Streamable HTTP with token auth and three permission modes: read-only, guarded, allow-all.</p>
           <ul>
-            <li>Host-parameterised tool set</li>
-            <li>Binds 127.0.0.1 only, tokens rotatable</li>
+            <li>Host-parameterized tool set</li>
+            <li>Listens on 127.0.0.1 only, tokens rotatable</li>
           </ul>
         </article>
         <article class="card reveal" data-tilt>
@@ -180,7 +236,7 @@
           <p>Passwords and API keys are AES-256-GCM encrypted in SQLite with the master key in the system keychain — copying the database is not enough to decrypt them.</p>
           <ul>
             <li>Private keys and API keys never enter the model context</li>
-            <li>macOS / Windows / Linux keychains</li>
+            <li>macOS / Windows keychains</li>
           </ul>
         </article>
         <article class="card reveal" data-tilt>
@@ -213,6 +269,75 @@
       </div>
     </section>
 
+    <!-- Quick start -->
+    <section class="section" id="quickstart">
+      <div class="section-head reveal">
+        <span class="kicker">QUICK START</span>
+        <h2>Three steps to hand your servers to AI</h2>
+        <p>No new ops stack to learn: install, add a host, then describe the task in plain language.</p>
+      </div>
+      <div class="steps">
+        <article class="step reveal">
+          <span class="step-num">01</span>
+          <h3>Download &amp; install</h3>
+          <p>Choose the macOS or Windows installer. macOS builds are not notarized; allow the app in System Settings on first launch.</p>
+        </article>
+        <article class="step reveal">
+          <span class="step-num">02</span>
+          <h3>Add a server</h3>
+          <p>Use a password, private key, encrypted key or ssh-agent — or import <code>~/.ssh/config</code> in one click.</p>
+        </article>
+        <article class="step reveal">
+          <span class="step-num">03</span>
+          <h3>Tell the AI what to do</h3>
+          <p>Describe the goal in the host chat. Read-only commands run automatically; writes and dangerous commands need approval and are audited.</p>
+        </article>
+      </div>
+      <div class="use-cases reveal">
+        <span class="use-cases-label">BUILT FOR</span>
+        <div class="use-case-list">
+          <span>Personal / small-team servers</span>
+          <span>Batch inspection &amp; remediation</span>
+          <span>SSH access for external AI tools (MCP)</span>
+        </div>
+      </div>
+      <div class="prompt-grid">
+        <div class="prompt-card reveal">
+          <p class="prompt-text">“The disk is almost full. Find the largest directories and suggest what to clean up.”</p>
+          <button class="copy-btn" type="button" data-copy>Copy prompt</button>
+        </div>
+        <div class="prompt-card reveal">
+          <p class="prompt-text">“Inspect this server: check for suspicious processes, login records and open ports.”</p>
+          <button class="copy-btn" type="button" data-copy>Copy prompt</button>
+        </div>
+        <div class="prompt-card reveal">
+          <p class="prompt-text">“Upgrade nginx to the latest stable release. Explain the risks and rollback plan first.”</p>
+          <button class="copy-btn" type="button" data-copy>Copy prompt</button>
+        </div>
+      </div>
+      <div class="mcp-box reveal">
+        <div class="mcp-copy">
+          <span class="kicker">MCP SERVER</span>
+          <h3>Connect hosts to Claude Desktop / Codex</h3>
+          <p>Enable the MCP server, pick the hosts to expose and choose a permission mode. It listens on <code>127.0.0.1</code> only, and tokens can be rotated at any time.</p>
+          <a class="text-link" href="https://github.com/shaguocgl/buff-term/blob/main/docs/%E5%AF%B9%E5%A4%96MCP%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1.md" target="_blank" rel="noopener">Read the MCP setup doc →</a>
+        </div>
+        <div class="code-block">
+          <div class="code-head"><span>MCP client config</span><button class="copy-btn" type="button" data-copy>Copy</button></div>
+          <pre><code>{
+  "mcpServers": {
+    "buffterm-ssh": {
+      "type": "http",
+      "url": "http://127.0.0.1:48123/mcp",
+      "headers": { "Authorization": "Bearer &lt;token&gt;" }
+    }
+  }
+}</code></pre>
+          <p class="code-note">Use the config generated by the MCP service dialog in the app.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Screenshots -->
     <section class="section" id="showcase">
       <div class="section-head reveal">
@@ -222,13 +347,46 @@
       </div>
       <div class="showcase reveal">
         <div class="showcase-main">
-          <img id="showMain" src="../pic/ai-agent.webp" alt="AI Agent chat" />
+          <img id="showMain" src="../pic/ai-agent.webp" alt="AI Agent chat" width="2400" height="1600" loading="lazy" decoding="async" tabindex="0" role="button" aria-label="Zoom in on the current screenshot" />
           <div class="showcase-caption" id="showCaption">AI Agent chat</div>
           <div class="showcase-dots" id="showDots"></div>
           <button class="show-arrow prev" id="prevImg" aria-label="Previous image">&#8249;</button>
           <button class="show-arrow next" id="nextImg" aria-label="Next image">&#8250;</button>
         </div>
         <nav class="showcase-nav" id="showNav" aria-label="Screenshot modules"></nav>
+      </div>
+    </section>
+
+    <!-- Security & data boundary -->
+    <section class="section" id="security">
+      <div class="section-head reveal">
+        <span class="kicker">SECURITY &amp; DATA BOUNDARY</span>
+        <h2>Credentials stay local. AI actions have boundaries.</h2>
+        <p>Before handing SSH to an AI, be clear about where data goes and who can run what.</p>
+      </div>
+      <div class="security-grid">
+        <article class="security-card reveal">
+          <div class="security-ico">🔐</div>
+          <h3>Credentials encrypted locally</h3>
+          <p>SSH passwords, key passphrases, AI API keys, MCP tokens and SMTP passwords are AES-256-GCM encrypted in local SQLite; the master key lives in the system keychain.</p>
+        </article>
+        <article class="security-card reveal">
+          <div class="security-ico">📡</div>
+          <h3>Clear data boundary</h3>
+          <p>Config, credentials and audit data stay on your machine. AI chats and inspection content are sent to the model provider you configure. Private keys and API keys never enter the model context.</p>
+        </article>
+        <article class="security-card reveal">
+          <div class="security-ico">🛡️</div>
+          <h3>Approval and full audit</h3>
+          <p>Read-only commands run automatically; writes, dangerous commands and custom rules need approval. Agent, MCP, terminal guard, file edits and remediation are all audited.</p>
+        </article>
+      </div>
+      <div class="flow-strip reveal" aria-label="AI action safety flow">
+        <div class="flow-step"><span>01</span><b>Read-only runs automatically</b><small>Status, files and trends</small></div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-step"><span>02</span><b>Writes &amp; dangerous commands need approval</b><small>Review the exact command first</small></div>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <div class="flow-step"><span>03</span><b>Full audit trail</b><small>Host, source, command and result</small></div>
       </div>
     </section>
 
@@ -247,6 +405,71 @@
         <div class="stack-item"><b>keyring</b><span>System keychain · master key</span></div>
         <div class="stack-item"><b>Self-built agent</b><span>OpenAI-compatible · no framework</span></div>
       </div>
+      <div class="model-chips reveal">
+        <span class="model-label">COMPATIBLE MODELS</span>
+        <span class="chip">DeepSeek</span>
+        <span class="chip">Qwen</span>
+        <span class="chip">Kimi</span>
+        <span class="chip">OpenAI</span>
+        <span class="chip">Ollama</span>
+        <span class="chip">Any OpenAI-compatible API</span>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="section-head reveal">
+        <span class="kicker">FAQ</span>
+        <h2>Frequently asked questions</h2>
+        <p>Direct answers about licensing, credentials and the data boundary.</p>
+      </div>
+      <div class="faq-list reveal">
+        <details class="faq-item">
+          <summary>Is buffTerm free?</summary>
+          <p>Yes. buffTerm is open source under the MIT license; downloads are free. AI features require your own model API key.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Where are SSH credentials stored?</summary>
+          <p>Locally in SQLite, encrypted with AES-256-GCM; the master key lives in the system keychain. Copying the database alone cannot decrypt them.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Does the AI see my password?</summary>
+          <p>No. SSH passwords, key passphrases and API keys never enter the model context, and command output is sanitized for secrets before it is sent. AI chats and inspection content are sent to the model provider you configure.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Which models are supported?</summary>
+          <p>Any OpenAI-compatible endpoint, including DeepSeek, Qwen, Kimi, OpenAI and local Ollama. Each provider can hold multiple models with their own context windows.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What if macOS says the app is unsigned?</summary>
+          <p>Current macOS builds are not notarized by Apple. Allow the app in System Settings → Privacy &amp; Security on first launch; credential encryption and local storage are unaffected.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is Linux supported?</summary>
+          <p>Official installers are available for macOS and Windows; no official Linux package is provided yet.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Does the MCP server expose anything to the internet?</summary>
+          <p>No. It listens on 127.0.0.1 only, uses random token authentication, supports token rotation and three permission modes: read-only, guarded and allow-all.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Changelog -->
+    <section class="section" id="changelog">
+      <div class="section-head reveal">
+        <span class="kicker">CHANGELOG</span>
+        <h2>Recent updates</h2>
+        <p>The project is moving fast — these are the latest releases read from GitHub.</p>
+      </div>
+      <div class="changelog-list reveal" id="changelogList" aria-live="polite">
+        <a class="release-item" href="https://github.com/shaguocgl/buff-term/releases/tag/v1.4.4" target="_blank" rel="noopener"><span class="release-tag">v1.4.4</span><span class="release-date">2026-10-21</span><span class="release-link">View details →</span></a>
+        <a class="release-item" href="https://github.com/shaguocgl/buff-term/releases/tag/v1.4.3" target="_blank" rel="noopener"><span class="release-tag">v1.4.3</span><span class="release-date">2026-10-21</span><span class="release-link">View details →</span></a>
+        <a class="release-item" href="https://github.com/shaguocgl/buff-term/releases/tag/v1.4.2" target="_blank" rel="noopener"><span class="release-tag">v1.4.2</span><span class="release-date">2026-10-21</span><span class="release-link">View details →</span></a>
+      </div>
+      <div class="changelog-more reveal">
+        <a class="text-link" href="https://github.com/shaguocgl/buff-term/releases" target="_blank" rel="noopener">View all releases →</a>
+      </div>
     </section>
 
     <!-- Download -->
@@ -254,10 +477,13 @@
       <div class="cta reveal">
         <h2>Ready to take over your servers?</h2>
         <p>Download buffTerm, connect your first host and let the AI start working.</p>
-        <div class="cta-btns">
-          <a class="btn btn-primary" href="https://github.com/shaguocgl/buff-term/releases/latest" target="_blank" rel="noopener">&#8595; Get it from Releases</a>
+        <div class="download-actions">
+          <a class="btn download-btn" id="downloadMac" href="https://github.com/shaguocgl/buff-term/releases/latest" target="_blank" rel="noopener" data-os="mac">&#8595; Download for macOS <span class="rec-badge">Recommended</span></a>
+          <a class="btn download-btn" id="downloadWin" href="https://github.com/shaguocgl/buff-term/releases/latest" target="_blank" rel="noopener" data-os="win">&#8595; Download for Windows <span class="rec-badge">Recommended</span></a>
+          <a class="btn btn-ghost" href="https://github.com/shaguocgl/buff-term/releases" target="_blank" rel="noopener">All releases</a>
         </div>
-        <p class="cta-note">macOS Universal DMG · Windows NSIS EXE · unsigned builds may prompt for system authorisation on first launch</p>
+        <p class="release-meta" id="releaseMeta">Latest release from GitHub · macOS Universal DMG / Windows NSIS EXE</p>
+        <p class="cta-note">macOS builds are not notarized; allow the app in System Settings on first launch. Credentials always stay encrypted on your machine.</p>
       </div>
     </section>
   </main>
@@ -265,12 +491,13 @@
   <footer class="footer">
     <div class="footer-inner">
       <div>
-        <p class="brand"><img class="brand-logo" src="../pic/logo.png" alt="buffTerm" /> buff<span class="accent">Term</span></p>
+        <p class="brand"><img class="brand-logo" src="../pic/logo.png" alt="buffTerm" width="256" height="256" loading="lazy" /> buff<span class="accent">Term</span></p>
         <p class="dim">AI-first SSH tool and MCP server</p>
       </div>
       <div class="footer-links">
         <a href="https://github.com/shaguocgl/buff-term" target="_blank" rel="noopener">GitHub repository</a>
         <a href="https://github.com/shaguocgl/buff-term/releases" target="_blank" rel="noopener">Releases</a>
+        <a href="#changelog">Changelog</a>
         <a href="https://github.com/shaguocgl/buff-term/tree/main/docs" target="_blank" rel="noopener">Design docs</a>
         <a href="../" hreflang="zh-CN" lang="zh-CN">中文</a>
       </div>
@@ -278,7 +505,8 @@
     </div>
   </footer>
 
-  <div class="lightbox" id="lightbox" hidden>
+  <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Screenshot preview">
+    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close preview">×</button>
     <img id="lightboxImg" src="" alt="Preview" />
   </div>
 

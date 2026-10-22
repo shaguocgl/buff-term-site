@@ -8,11 +8,13 @@
   const IS_EN = LANG.indexOf('en') === 0;
   const ROOT = document.documentElement.getAttribute('data-root') || '';
   const img = (name) => ROOT + 'pic/' + name;
+  const REDUCE_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const COPIED_LABEL = IS_EN ? 'Copied' : '已复制';
 
   const TEXT = IS_EN
     ? {
         phrases: [
-          'SSH terminal · dangerous-command blocking · AI inspection · MCP server',
+          'SSH terminal\u00A0· dangerous-command blocking\u00A0· AI inspection\u00A0· MCP\u00A0server',
           'Describe the task — the AI does the ops',
           'Bilingual UI · credentials encrypted locally',
         ],
@@ -29,7 +31,7 @@
       }
     : {
         phrases: [
-          'SSH 终端 · 危险命令拦截 · AI 巡检整改 · MCP 服务',
+          'SSH 终端\u00A0· 危险命令拦截\u00A0· AI 巡检整改\u00A0· MCP\u00A0服务',
           '自然语言让 AI 帮你运维服务器',
           '中英双语界面 · 凭据本地加密',
         ],
@@ -48,7 +50,7 @@
   /* ---------- 粒子网络背景 ---------- */
   const canvas = document.getElementById('bg');
   const ctx = canvas.getContext('2d');
-  let W, H, particles = [], raf;
+  let W, H, particles = [], rafId = null, started = false, heroInView = true;
 
   function resize() {
     W = canvas.width = window.innerWidth;
@@ -91,20 +93,30 @@
         }
       }
     }
-    raf = requestAnimationFrame(draw);
+    rafId = requestAnimationFrame(draw);
   }
-  let started = false;
   function startBg() {
-    if (started) return;
+    if (started || REDUCE_MOTION || document.hidden || !heroInView) return;
     started = true;
     resize(); initParticles(); draw();
   }
-  window.addEventListener('resize', () => { resize(); initParticles(); });
-  // 降低移动端开销
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.getElementById('bg').style.display = 'none';
+  function stopBg() {
+    if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+    started = false;
+  }
+  window.addEventListener('resize', () => { if (started) { resize(); initParticles(); } });
+  if (REDUCE_MOTION) {
+    canvas.style.display = 'none';
   } else {
     startBg();
+    document.addEventListener('visibilitychange', () => { document.hidden ? stopBg() : startBg(); });
+    const heroEl = document.querySelector('.hero');
+    if (heroEl && 'IntersectionObserver' in window) {
+      new IntersectionObserver((entries) => {
+        heroInView = entries[0].isIntersecting;
+        heroInView ? startBg() : stopBg();
+      }, { threshold: 0 }).observe(heroEl);
+    }
   }
 
   /* ---------- 打字机 ---------- */
@@ -140,6 +152,7 @@
       if (!e.isIntersecting) return;
       const b = e.target.querySelector('b');
       const target = +b.dataset.count;
+      if (REDUCE_MOTION) { b.textContent = target; nio.unobserve(e.target); return; }
       const dur = 1400, t0 = performance.now();
       (function tick(t) {
         const p = Math.min(1, (t - t0) / dur);
@@ -181,6 +194,7 @@
     SHOW_MODULES.forEach((m, i) => {
       const btn = document.createElement('button');
       btn.className = 'show-item' + (i === modIdx ? ' active' : '');
+      btn.setAttribute('aria-current', i === modIdx ? 'true' : 'false');
       btn.innerHTML = '<span class="show-idx">0' + (i + 1) + '</span>' + m.title +
         (m.imgs.length > 1 ? '<span class="show-multi">' + TEXT.imagesSuffix(m.imgs.length) + '</span>' : '');
       btn.addEventListener('click', () => { select(i, 0); });
@@ -196,15 +210,24 @@
       const d = document.createElement('button');
       d.className = i === imgIdx ? 'active' : '';
       d.setAttribute('aria-label', TEXT.imageLabel(i + 1));
+      d.setAttribute('aria-current', i === imgIdx ? 'true' : 'false');
       d.addEventListener('click', () => select(modIdx, i));
       dots.appendChild(d);
     });
   }
-  // 预加载全部实拍图，切换即时生效
-  SHOW_MODULES.forEach((m) => m.imgs.forEach((src) => { const im = new Image(); im.src = src; }));
+  // 只预加载当前、下一张和下一个模块的首图，避免首屏把全部截图拉下来
+  function preloadAround(mi, ii) {
+    const m = SHOW_MODULES[mi];
+    if (!m) return;
+    const next = SHOW_MODULES[(mi + 1) % SHOW_MODULES.length];
+    [m.imgs[ii], m.imgs[(ii + 1) % m.imgs.length], next.imgs[0]].forEach((src) => {
+      if (src) { const im = new Image(); im.src = src; }
+    });
+  }
 
   function show() {
     const m = SHOW_MODULES[modIdx];
+    preloadAround(modIdx, imgIdx);
     main.src = m.imgs[imgIdx];
     main.alt = m.title;
     cap.textContent = m.title + (m.imgs.length > 1 ? ' · ' + (imgIdx + 1) + '/' + m.imgs.length : '');
@@ -226,17 +249,197 @@
   /* ---------- 灯箱 ---------- */
   const lb = document.getElementById('lightbox');
   const lbImg = document.getElementById('lightboxImg');
-  function openLightbox() { lbImg.src = main.src; lb.hidden = false; }
-  function closeLightbox() { lb.hidden = true; lbImg.src = ''; }
-  document.querySelector('.showcase-main').addEventListener('click', openLightbox);
-  lb.addEventListener('click', closeLightbox);
+  const lbClose = document.getElementById('lightboxClose');
+  let lastFocus = null;
+
+  function openLightbox(src, alt) {
+    if (!lb || !lbImg) return;
+    lastFocus = document.activeElement;
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    lb.hidden = false;
+    document.body.style.overflow = 'hidden';
+    if (lbClose) lbClose.focus();
+  }
+  function closeLightbox() {
+    if (!lb || lb.hidden) return;
+    lb.hidden = true;
+    lbImg.src = '';
+    document.body.style.overflow = '';
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+  }
+
+  const heroImg = document.querySelector('.hero-shot img');
+  [main, heroImg].forEach((trigger) => {
+    if (!trigger) return;
+    trigger.addEventListener('click', () => openLightbox(trigger.src, trigger.alt));
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openLightbox(trigger.src, trigger.alt);
+      }
+    });
+  });
+  if (lbClose) lbClose.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); });
+  if (lb) {
+    lb.addEventListener('click', closeLightbox);
+    lb.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') { e.preventDefault(); if (lbClose) lbClose.focus(); }
+    });
+  }
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
 
   /* ---------- 导航 ---------- */
   const nav = document.getElementById('nav');
   const burger = document.getElementById('navBurger');
-  const links = document.querySelector('.nav-links');
+  const links = document.getElementById('navLinks');
+  function setMenu(open) {
+    if (!links || !burger) return;
+    links.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', String(open));
+  }
   window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20), { passive: true });
-  burger.addEventListener('click', () => links.classList.toggle('open'));
-  links.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => links.classList.remove('open')));
+  if (burger) burger.addEventListener('click', (e) => { e.stopPropagation(); setMenu(!links.classList.contains('open')); });
+  if (links) links.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+  document.addEventListener('click', (e) => { if (nav && !nav.contains(e.target)) setMenu(false); });
+
+  /* ---------- 复制提示词 / MCP 配置 ---------- */
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch { ok = false; }
+      ta.remove();
+      return ok;
+    }
+  }
+
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const prompt = btn.closest('.prompt-card');
+      const code = btn.closest('.code-block');
+      let text = '';
+      if (prompt) {
+        text = (prompt.querySelector('.prompt-text')?.textContent || '').trim();
+        text = text.replace(/^[“"']+|[”"']+$/g, '').trim();
+      } else if (code) {
+        text = (code.querySelector('code')?.textContent || '').trim();
+      }
+      if (!text) return;
+      const original = btn.textContent;
+      const ok = await copyText(text);
+      if (!ok) return;
+      btn.textContent = COPIED_LABEL;
+      btn.disabled = true;
+      setTimeout(() => { btn.textContent = original; btn.disabled = false; }, 1600);
+    });
+  });
+
+  /* ---------- 最新版本 / 更新日志 ---------- */
+  const RELEASES_API = 'https://api.github.com/repos/shaguocgl/buff-term/releases?per_page=3';
+  const RELEASES_CACHE_KEY = 'buffterm-releases-v1';
+  const RELEASES_CACHE_TTL = 60 * 60 * 1000;
+
+  function readReleaseCache() {
+    try {
+      const raw = sessionStorage.getItem(RELEASES_CACHE_KEY);
+      if (!raw) return null;
+      const cached = JSON.parse(raw);
+      if (!cached || Date.now() - cached.ts > RELEASES_CACHE_TTL) return null;
+      return cached.data;
+    } catch { return null; }
+  }
+
+  function writeReleaseCache(data) {
+    try { sessionStorage.setItem(RELEASES_CACHE_KEY, JSON.stringify({ ts: Date.now(), data })); } catch { /* ignore */ }
+  }
+
+  async function loadReleases() {
+    const cached = readReleaseCache();
+    if (cached && cached.length) return cached;
+    const res = await fetch(RELEASES_API, { headers: { Accept: 'application/vnd.github+json' } });
+    if (!res.ok) throw new Error('release fetch failed: ' + res.status);
+    const data = await res.json();
+    if (Array.isArray(data) && data.length) writeReleaseCache(data);
+    return data;
+  }
+
+  function formatBytes(bytes) {
+    if (!bytes) return '';
+    return bytes >= 1024 * 1024 ? (bytes / 1024 / 1024).toFixed(1) + ' MB' : Math.round(bytes / 1024) + ' KB';
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return '';
+    return d.toLocaleDateString(IS_EN ? 'en-US' : 'zh-CN', { year: 'numeric', month: 'short', day: 'numeric' });
+  }
+
+  function detectOS() {
+    const platform = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+    const p = platform.toLowerCase();
+    if (p.indexOf('mac') === 0 || p.includes('mac')) return 'mac';
+    if (p.includes('win')) return 'win';
+    return '';
+  }
+
+  function renderChangelog(releases) {
+    const list = document.getElementById('changelogList');
+    if (!list) return;
+    list.innerHTML = '';
+    releases.forEach((r) => {
+      const a = document.createElement('a');
+      a.className = 'release-item';
+      a.href = r.html_url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      const tag = document.createElement('span');
+      tag.className = 'release-tag';
+      tag.textContent = r.tag_name || '';
+      const date = document.createElement('span');
+      date.className = 'release-date';
+      date.textContent = formatDate(r.published_at);
+      const link = document.createElement('span');
+      link.className = 'release-link';
+      link.textContent = IS_EN ? 'View details →' : '查看详情 →';
+      a.append(tag, date, link);
+      list.append(a);
+    });
+  }
+
+  function applyReleases(releases) {
+    const latest = releases[0];
+    if (!latest) return;
+    const assets = latest.assets || [];
+    const mac = assets.find((a) => /\.dmg$/i.test(a.name));
+    const win = assets.find((a) => /setup\.exe$/i.test(a.name));
+    document.querySelectorAll('.download-btn').forEach((btn) => {
+      const asset = btn.dataset.os === 'mac' ? mac : win;
+      if (asset) btn.href = asset.browser_download_url;
+    });
+    const os = detectOS();
+    document.querySelectorAll('.download-btn').forEach((btn) => {
+      btn.classList.toggle('is-recommended', btn.dataset.os === os);
+    });
+    const meta = document.getElementById('releaseMeta');
+    if (meta) {
+      const parts = [(IS_EN ? 'Latest ' : '最新版本 ') + latest.tag_name, formatDate(latest.published_at)];
+      if (win) parts.push('Windows\u00A0' + formatBytes(win.size));
+      if (mac) parts.push('macOS\u00A0' + formatBytes(mac.size));
+      meta.textContent = parts.filter(Boolean).join(' · ');
+    }
+    renderChangelog(releases);
+  }
+
+  loadReleases().then((releases) => { if (Array.isArray(releases) && releases.length) applyReleases(releases); }).catch(() => { /* keep static fallback */ });
 })();
