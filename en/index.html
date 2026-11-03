@@ -51,8 +51,8 @@
     "downloadUrl": "https://github.com/shaguocgl/buff-term/releases/latest",
     "operatingSystem": "macOS, Windows",
     "applicationCategory": "DeveloperApplication",
-    "softwareVersion": "1.4.7",
-    "dateModified": "2026-10-27",
+    "softwareVersion": "1.4.8",
+    "dateModified": "2026-11-03",
     "license": "https://opensource.org/licenses/MIT",
     "sameAs": ["https://github.com/shaguocgl/buff-term"],
     "inLanguage": "en",
@@ -104,8 +104,8 @@
       },
       {
         "@type": "Question",
-        "name": "What if macOS says the app is unsigned?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Current macOS builds are not notarized by Apple. Allow the app in System Settings → Privacy & Security on first launch; credential encryption and local storage are unaffected." }
+        "name": "What if my system blocks the first launch?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Installers are not code-signed or Apple-notarized yet, so the warning is expected and does not mean the file is compromised. Windows: in SmartScreen choose More info → Run anyway. macOS: right-click the app → Open → Open; if it reports the app is damaged, run xattr -d com.apple.quarantine /Applications/buffTerm.app and reopen it. Credential encryption and local storage are unaffected." }
       },
       {
         "@type": "Question",
@@ -280,7 +280,7 @@
         <article class="step reveal">
           <span class="step-num">01</span>
           <h3>Download &amp; install</h3>
-          <p>Choose the macOS or Windows installer. macOS builds are not notarized; allow the app in System Settings on first launch.</p>
+          <p>Choose the macOS or Windows installer. Builds are not signed or notarized yet: on Windows pick More info → Run anyway in SmartScreen, on macOS right-click the app and choose Open.</p>
         </article>
         <article class="step reveal">
           <span class="step-num">02</span>
@@ -441,8 +441,8 @@
           <p>Any OpenAI-compatible endpoint, including DeepSeek, Qwen, Kimi, OpenAI and local Ollama. Each provider can hold multiple models with their own context windows.</p>
         </details>
         <details class="faq-item">
-          <summary>What if macOS says the app is unsigned?</summary>
-          <p>Current macOS builds are not notarized by Apple. Allow the app in System Settings → Privacy &amp; Security on first launch; credential encryption and local storage are unaffected.</p>
+          <summary>What if my system blocks the first launch?</summary>
+          <p>Installers are not code-signed or Apple-notarized yet, so the warning is expected and does not mean the file is compromised. Windows: in SmartScreen choose <em>More info</em> → <em>Run anyway</em>. macOS: right-click the app → <em>Open</em> → <em>Open</em>; if it reports the app is damaged, run <code>xattr -d com.apple.quarantine /Applications/buffTerm.app</code> and reopen it. Credential encryption and local storage are unaffected.</p>
         </details>
         <details class="faq-item">
           <summary>Is Linux supported?</summary>
@@ -463,9 +463,9 @@
         <p>The project is moving fast — these are the latest releases read from GitHub.</p>
       </div>
       <div class="changelog-list reveal" id="changelogList" aria-live="polite">
+        <a class="release-item" href="https://github.com/shaguocgl/buff-term/releases/tag/v1.4.8" target="_blank" rel="noopener"><span class="release-tag">v1.4.8</span><span class="release-date">2026-11-01</span><span class="release-link">View details →</span></a>
         <a class="release-item" href="https://github.com/shaguocgl/buff-term/releases/tag/v1.4.7" target="_blank" rel="noopener"><span class="release-tag">v1.4.7</span><span class="release-date">2026-10-27</span><span class="release-link">View details →</span></a>
         <a class="release-item" href="https://github.com/shaguocgl/buff-term/releases/tag/v1.4.6" target="_blank" rel="noopener"><span class="release-tag">v1.4.6</span><span class="release-date">2026-10-22</span><span class="release-link">View details →</span></a>
-        <a class="release-item" href="https://github.com/shaguocgl/buff-term/releases/tag/v1.4.5" target="_blank" rel="noopener"><span class="release-tag">v1.4.5</span><span class="release-date">2026-10-22</span><span class="release-link">View details →</span></a>
       </div>
       <div class="changelog-more reveal">
         <a class="text-link" href="https://github.com/shaguocgl/buff-term/releases" target="_blank" rel="noopener">View all releases →</a>
@@ -483,7 +483,7 @@
           <a class="btn btn-ghost" href="https://github.com/shaguocgl/buff-term/releases" target="_blank" rel="noopener">All releases</a>
         </div>
         <p class="release-meta" id="releaseMeta">Latest release from GitHub · macOS Universal DMG / Windows NSIS EXE</p>
-        <p class="cta-note">macOS builds are not notarized; allow the app in System Settings on first launch. Credentials always stay encrypted on your machine.</p>
+        <p class="cta-note">Installers are not code-signed or Apple-notarized yet: on SmartScreen choose More info → Run anyway, and on macOS right-click the app and choose Open. Credentials always stay encrypted on your machine.</p>
       </div>
     </section>
   </main>
